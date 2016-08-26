@@ -1,0 +1,19 @@
+{
+  "name": "relation-provider",
+  "version": "0.0.1",
+  "description": "Provides framework for retrieving relationship information from a set of microservice services.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me-ventures",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "request": "^2.74.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "nock": "^8.0.0"
+  }
+}
