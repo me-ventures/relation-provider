@@ -9,7 +9,7 @@ var relationInfoProvider = new InfoProvider();
 relationInfoProvider.setLocationProvider("kubernetes");
 relationInfoProvider.setRetrievalProvider("http-service");
 
-module.exports = _.extend(module.exports, relationInfoProvider);
+module.exports = _.extend(relationInfoProvider, module.exports);
 
 function create() {
     return new InfoProvider();

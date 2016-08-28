@@ -6,10 +6,10 @@ module.exports = class extends RetrievalProvider {
         super()
     }
 
-    getRelationships(adresses) {
+    getRelationships(addresses) {
         var tasks = [];
 
-        adresses.forEach((address) =>  tasks.push(this._getRelationship(address)));
+        addresses.forEach((address) =>  tasks.push(this._getRelationship(address)));
 
 
         return Promise.all(tasks)

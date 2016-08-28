@@ -3,13 +3,14 @@ var retrievalProviderFactory = require('./information-retrieval/retrieval-provid
 
 
 module.exports = class {
-    
+
     constructor() {
 
     }
 
     getRelations() {
-
+        return this.locationProvider.getLocations()
+                    .then((addresses) => this.retrievalProvider.getRelationships(addresses))
     }
 
     /**

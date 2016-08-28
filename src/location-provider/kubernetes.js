@@ -4,7 +4,15 @@ var request = require('request');
 module.exports = class extends LocationProvider {
     constructor(options) {
         super();
-        this.options = options;
+
+        if(options) {
+            this.options = options;
+        }
+        else {
+            this.options = {
+                master: "http://localhost"
+            }
+        }
     }
 
     getLocations() {
