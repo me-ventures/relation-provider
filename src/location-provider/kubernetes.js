@@ -41,7 +41,6 @@ module.exports = class extends LocationProvider {
 
     _getPods(deployments, master) {
 
-
         var tasks = [];
 
         deployments.forEach(pod => tasks.push(this._getPodInfo(pod, master)));

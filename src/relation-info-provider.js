@@ -1,4 +1,9 @@
+var locationProviderFactory = require('./location-provider/location-provider-factory');
+var retrievalProviderFactory = require('./information-retrieval/retrieval-provider-factory');
+
+
 module.exports = class {
+    
     constructor() {
 
     }
@@ -12,8 +17,18 @@ module.exports = class {
      * interface.
      *
      * @param name | object
+     * @param options
      */
-    setLocationProvider( name ) {
-        
+    setLocationProvider( name, options ) {
+        if(typeof name === 'object') {
+            this.locationProvider = name;
+        }
+
+        this.locationProvider = locationProviderFactory.create(name, options);
     }
+
+    setRetrievalProvider(name, options) {
+        this.retrievalProvider = retrievalProviderFactory.create(name, options)
+    }
+
 };
