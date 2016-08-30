@@ -1,5 +1,6 @@
 var LocationProvider = require('./location-provider');
 var request = require('request');
+var fs = require('fs');
 
 module.exports = class extends LocationProvider {
     constructor(options) {
@@ -10,9 +11,14 @@ module.exports = class extends LocationProvider {
         }
         else {
             this.options = {
-                master: "http://localhost"
+                master: "http://localhost",
+                auth: {
+                    type: "none"
+                }
             }
         }
+
+        this.HTTPOptions = this._getHTTPOptions(this.options);
     }
 
     getLocations() {
@@ -30,7 +36,7 @@ module.exports = class extends LocationProvider {
 
             var url =  master + deploymentsEndpoint;
 
-            request(url, (error, response, body) =>  {
+            request(url, this.HTTPOptions, (error, response, body) =>  {
                 if(error) {
                     return reject(error)
                 }
@@ -81,7 +87,7 @@ module.exports = class extends LocationProvider {
 
             var url =  masterlocation + podsEndpoint + '?' + queryString;
 
-            request(url, (error, response, body) =>  {
+            request(url, this.HTTPOptions, (error, response, body) =>  {
                 if(error) {
                     return reject(error)
                 }
@@ -105,5 +111,32 @@ module.exports = class extends LocationProvider {
         });
 
         return adresses;
+    }
+
+    _getHTTPOptions(options) {
+        var httpOptions = this._createAuth(options.auth);
+
+        if(options.caFile && options.caFile !== '') {
+            httpOptions.ca = fs.readFileSync(options.caFile);
+        }
+
+        return httpOptions;
+    }
+
+    _createAuth(authOptions) {
+        if(authOptions == undefined) {
+            return {}
+        }
+
+        switch (authOptions.type) {
+            case "none":
+                return {};
+            case "token":
+                return {
+                    headers: {
+                        "Authorization": `Bearer ${authOptions.token}`
+                    }
+                }
+        }
     }
 };

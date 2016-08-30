@@ -4,7 +4,7 @@
   "description": "Provides framework for retrieving relationship information from a set of microservice services.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive test/unit"
   },
   "author": "me-ventures",
   "license": "LGPL-3.0",
