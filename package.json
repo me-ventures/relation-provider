@@ -1,6 +1,6 @@
 {
   "name": "relation-provider",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Provides framework for retrieving relationship information from a set of microservice services.",
   "main": "index.js",
   "scripts": {
