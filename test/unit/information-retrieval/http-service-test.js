@@ -102,7 +102,7 @@ describe("HTTP-server retrieval test", function(){
 
     it("should not fail when a service time-outs", function(done){
         this.timeout(6000);
-
+    
         var provider = new httpService({});
 
         var podEndpoint1 = nock('http://10.0.0.1:11111')

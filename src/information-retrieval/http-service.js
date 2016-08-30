@@ -25,7 +25,7 @@ module.exports = class extends RetrievalProvider {
 
 
             request(url, { timeout: 5000 }, (error, response, body) =>  {
-                if(error && error.code === 'ETIMEDOUT') {
+                if(error && (error.code === 'ETIMEDOUT' || error.code == 'ECONNREFUSED')) {
                     return resolve(null)
                 }
 
