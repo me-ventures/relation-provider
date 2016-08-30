@@ -1,5 +1,6 @@
 var RetrievalProvider = require('./retrieval-provider');
 var request = require('request');
+var _ = require('underscore');
 
 module.exports = class extends RetrievalProvider {
     constructor(options) {
@@ -13,6 +14,9 @@ module.exports = class extends RetrievalProvider {
 
 
         return Promise.all(tasks)
+                      .then(results => {
+                          return _.filter(results, x => x != null)
+                      })
     }
 
     _getRelationship(address) {
@@ -20,9 +24,13 @@ module.exports = class extends RetrievalProvider {
             var url = `http://${address}:11111/status`;
 
 
-            request(url, (error, response, body) =>  {
+            request(url, { timeout: 5000 }, (error, response, body) =>  {
+                if(error && error.code === 'ETIMEDOUT') {
+                    return resolve(null)
+                }
+
                 if(error || response.statusCode !== 200) {
-                    reject(error)
+                    return reject(error)
                 }
 
                 resolve(JSON.parse(body));

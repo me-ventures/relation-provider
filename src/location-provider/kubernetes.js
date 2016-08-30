@@ -120,6 +120,8 @@ module.exports = class extends LocationProvider {
             httpOptions.ca = fs.readFileSync(options.caFile);
         }
 
+        httpOptions.timeout = 5000;
+
         return httpOptions;
     }
 
