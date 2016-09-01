@@ -21,8 +21,13 @@ module.exports = class extends RetrievalProvider {
 
     _getRelationship(address) {
         return new Promise((resolve, reject) => {
-            var url = `http://${address}:11111/status`;
+            if( typeof address !== 'string' ){
+                // @todo: log
+                return resolve(null);
+            }
 
+
+            var url = `http://${address}:11111/status`;
 
             request(url, { timeout: 5000 }, (error, response, body) =>  {
                 if(error && (error.code === 'ETIMEDOUT' || error.code == 'ECONNREFUSED')) {
